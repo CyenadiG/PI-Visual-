@@ -24,15 +24,19 @@ def monteCarlo(points):
     return pi_estimate
 
 '''
-The accumulator method of approximating pi involves summing the Leibniz series: 
-pi = 4 * (1 - 1/3 + 1/5 - 1/7 + 1/9 - 1/11 + ...). As more terms are added, the
-approximation "accumulates" closer to pi, hence the name.
+The accumulator method of approximating pi involves summing the Nilakantha series. As 
+more terms are added, the approximation "accumulates" closer to pi, hence the name.
 '''
-def accumulator_approximation(n):
-    total = 0
-    for k in range(n):
-        total += ((-1)**k)/(2*k+1)
-    pi_estimate = 4 * total
+def accumulator_approximation(terms):
+    pi_estimate = 3  # initialize estimate with first term of the Nilakantha series (which is 3)
+    sign = 1  
+
+    for n in range(1, terms + 1): 
+        # calculate current term in Nilakantha series
+        term = 4 / (2 * n * (2 * n + 1) * (2 * n + 2))
+        pi_estimate += sign * term  # add or subtract term based on current sign
+        sign *= -1  # switch sign for next term
+
     return pi_estimate
 
 '''
