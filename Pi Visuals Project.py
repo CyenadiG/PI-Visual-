@@ -135,15 +135,17 @@ def plot_runtimes():
     
     # Archimedes Method
     archimedes_sides = [3, 4, 5, 6, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
-    archimedes_runtimes = []
-    archimedes_diffs = []
-    for sides in archimedes_sides:
-        runtime = timeit.timeit(lambda: Archimedes(sides), number=1)
-        pi_estimate = Archimedes(sides)
-        archimedes_runtimes.append(runtime)
-        archimedes_diffs.append(abs(math.pi - pi_estimate))
+    num_runs = 5
     plt.figure(figsize=(10, 6))
-    sns.lineplot(x=archimedes_diffs, y=archimedes_runtimes, marker='s')
+    for run in range(num_runs):
+        archimedes_runtimes = []
+        archimedes_diffs = []
+        for sides in archimedes_sides:
+            runtime = timeit.timeit(lambda: Archimedes(sides), number=1)
+            pi_estimate = Archimedes(sides)
+            archimedes_runtimes.append(runtime)
+            archimedes_diffs.append(abs(math.pi - pi_estimate))
+        sns.lineplot(x=archimedes_diffs, y=archimedes_runtimes, marker='s')
     plt.xscale('log')
     plt.yscale('log')
     plt.xlabel('Precision (Absolute Error)')
